@@ -1,0 +1,43 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="14">
+            <item index="0" class="java.lang.String" itemvalue="static" />
+            <item index="1" class="java.lang.String" itemvalue="lib" />
+            <item index="2" class="java.lang.String" itemvalue="border" />
+            <item index="3" class="java.lang.String" itemvalue="border-secondary" />
+            <item index="4" class="java.lang.String" itemvalue="rounded-bottom" />
+            <item index="5" class="java.lang.String" itemvalue="border-top-0" />
+            <item index="6" class="java.lang.String" itemvalue="p-4" />
+            <item index="7" class="java.lang.String" itemvalue="inline-block;" />
+            <item index="8" class="java.lang.String" itemvalue="display:" />
+            <item index="9" class="java.lang.String" itemvalue="diplalay" />
+            <item index="10" class="java.lang.String" itemvalue="display" />
+            <item index="11" class="java.lang.String" itemvalue="display:inline" />
+            <item index="12" class="java.lang.String" itemvalue="display:inline-block" />
+            <item index="13" class="java.lang.String" itemvalue="href" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="PyInterpreterInspection" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="PyPep8Inspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="W292" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="shopapp.models.Product.category" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Reviews for {{ movie.title }}</h1>
+  <p>{{ movie.description }}</p>
+
+  <hr>
+
+  {% if reviews %}
+    <ul>
+      {% for review in reviews %}
+        <li>
+          <strong>Reviewed by:</strong> {{ review.user.username }}<br>
+          <strong>Rating:</strong> {{ review.rating }}/5<br>
+          <strong>Review:</strong> {{ review.text }}<br>
+          <strong>Posted on:</strong> {{ review.created_at|date:"Y-m-d" }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No reviews yet. Be the first to review!</p>
+  {% endif %}
+
+  <hr>
+
+  <a href="{% url 'movie_detail' movie.id %}">Back to {{ movie.name }}</a> |
+  <a href="{% url 'movie_list' %}">Back to Movie List</a>
+
+{% endblock %}

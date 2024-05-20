@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Search Results for "{{ query }}"</h1>
+
+{% if movies %}
+  <ul>
+    {% for movie in movies %}
+      <li>{{ movies.name }}</li>
+
+
+
+      <!-- Display other movie details as needed -->
+    {% endfor %}
+
+  </ul>
+
+{% else %}
+  <p>No movies found for "{{ query }}".</p>
+{% endif %}
+{% endblock %}

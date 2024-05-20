@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+    <h2>Search Movies</h2>
+    <form method="get" action="movie_search.html">
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <h3>Results:</h3>
+    <div class="list-group">
+        {% for movie in search_results %}
+            <a href="{% url 'moviewebsiteapp:detail' movie.id %}" class="list-group-item list-group-item-action">
+                {{ movie.name }}
+            </a>
+        {% empty %}
+            <div class="list-group-item">No movies found.</div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

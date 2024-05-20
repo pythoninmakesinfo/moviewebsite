@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie List</title>
+</head>
+<body>
+    <h1>Movies</h1>
+
+    <div>
+        <h2>Categories</h2>
+        <ul>
+            {% for category in categories %}
+                <li><a href="{% url 'movie_by_category' category.id %}">{{ category.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div>
+        {% if selected_category %}
+            <h2>Movies in {{ selected_category.name }}</h2>
+        {% else %}
+            <h2>All Movies</h2>
+        {% endif %}
+        <ul>
+            {% for movie in movies %}
+                <li>
+                    <a href="{% url 'movie_detail' movie.id %}">{{ movie.title }}</a>
+                    <p>{{ movie.description }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

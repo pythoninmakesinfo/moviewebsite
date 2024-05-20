@@ -1,0 +1,39 @@
+.star-rating input[type="radio"]{
+display:none;
+}
+.star-rating label {
+    color: grey;
+    font-size: 30px;
+}
+
+.star-rating input[type="radio"]:checked ~ label {
+    color: gold;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: orange;
+}
+
+/* This takes care of the star order issue */
+.star-rating {
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+}
+.my_search_text{
+padding-top:20px;
+}
+.my_bottom_margin{
+margin-my_bottom_margin
+}
+.my_image{
+width:100;
+height:auto;
+}
+.body{
+background-color:deeppink;
+}
+.card_button{
+ yellow
+}

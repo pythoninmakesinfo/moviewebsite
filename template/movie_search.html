@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Movie Search</h1>
+
+<form method="get" action="{% url 'searchapp:movie_search' %}">
+  {{ form.as_p }}
+  <button type="submit">Search</button>
+</form>
+{% endblock %}

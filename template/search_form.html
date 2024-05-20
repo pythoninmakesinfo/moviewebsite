@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Search</title>
+</head>
+<body>
+    <h1>Search for a Movie</h1>
+
+    <form method="GET" action="{% url 'movie_search' %}">
+        {{ form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+</body>
+</html>

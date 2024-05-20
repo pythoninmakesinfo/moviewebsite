@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container" >
+    <div class="row">
+            <div class ="col-md-6">
+           <img src="{{movies.img.url}}"   width="400" height="400">
+          </div>
+           <div class="col-md-6">
+
+            <h2>{{movies.name}}</h2>
+            <h6>{{movies.desc}}</h6>
+            <h4>{{movies.actors}}</h4>
+            <h4>{{movies.date}}</h4>
+
+
+
+
+                 <a class="btn btn-success " href="{% url 'moviewebsiteapp:update' movies.id %}">update</a>
+                 <a class="btn btn-danger " href="{% url 'moviewebsiteapp:delete' movies.id %}">delete</a>
+
+</div>
+
+
+
+                <h3>Reviews</h3>
+{% for review in reviews %}
+  <p><strong>{{ review.user.username }}</strong>: {{ review.comment }} ({{ review.rating }}/5)</p>
+{% endfor %}
+
+<h3>Add a Review</h3>
+<form method="post">
+  {% csrf_token %}
+  {{ review_form.as_p }}
+  <a class="btn btn-success " href="{% url 'moviewebsiteapp:add_review' movies.id %}">add_review</a>
+</form>
+
+    </div>
+         </div>
+
+
+
+
+
+{% endblock %}
+
