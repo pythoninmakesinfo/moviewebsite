@@ -87,7 +87,7 @@ def add_review(request, movie_id):
 def movies_by_genre(request, genre_id):
     genre = get_object_or_404(Genres, id=genre_id)
     movies = Movie.objects.filter(genres=genre)
-    return render(request, 'movies_by_genre.html', {'genre': genre, 'movies': movies})
+    return render(request, 'genres.html', {'genre': genre, 'movies': movies})
 
 
 
