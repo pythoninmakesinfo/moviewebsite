@@ -1,13 +1,11 @@
-
 from django.http import HttpResponse
-
-from .forms import MovieForm, ReviewForm
-
 from django.shortcuts import render, redirect, get_object_or_404
+from .forms import MovieForm
+from .models import Movie
+from django.contrib import messages
+from .forms import  ReviewForm
 from django.contrib.auth.decorators import login_required
-
-
-from .models import Movie, Review, Genres
+from .models import  Review, Genres
 
 
 def index(request):
@@ -15,7 +13,7 @@ def index(request):
     context={'Movie_list':moviess}
     return render(request, 'index.html', context)
 
-@login_required
+
 def detail(request,movie_id):
     moviess =get_object_or_404(Movie, id=movie_id)
     reviews = Review.objects.filter(movie=moviess)
@@ -23,41 +21,54 @@ def detail(request,movie_id):
     return render(request,"detail.html", {'movies': moviess,'reviews':reviews,'genres':genres})
     return HttpResponse("this is movies no %s"% movie_id)
 @login_required
-def youtube_trailer(request,movie_id):
-    movies=Movie.objects.get(id=movie_id)
-    return render(request, "youtube_trailer.html", {'movies': movies})
-    return HttpResponse("this is movies no %s"% movie_id)
+def youtube_trailer(request, movie_id):
+    movie = get_object_or_404(Movie, id=movie_id)
+    return render(request, "youtube_trailer.html", {'movies': movie})
+
 
 @login_required
 def add_movie(request):
-    if request.method=="POST" and request.FILES['img']:
-        name=request.POST.get('name',)
-        desc= request.POST.get('desc',)
-        actors= request.POST.get('actors',)
-        img =request.FILES['img']
-        date=request.POST.get('date',)
-        youtube_trailer=request.POST.get('youtube_trailer',)
-        movie=Movie(name=name,desc=desc,actors=actors,img=img,date=date,youtube_trailer=youtube_trailer)
-        movie.save()
-        return redirect('/')
-    return render(request, 'add.html')
+    if request.method == "POST":
+        form = MovieForm(request.POST, request.FILES)
+        if form.is_valid():
+            movie = form.save(commit=False)
+            movie.added_by = request.user
+            movie.save()
+            return redirect('/')
+    else:
+        form = MovieForm()
+    return render(request, 'add.html', {'form': form})
+
 
 @login_required
-def update(request,id):
-    movie=Movie.objects.get(id=id)
-    form=MovieForm(request.POST or None,request.FILES,instance=movie)
-    if form.is_valid():
-        form.save()
-        return redirect('/')
-    return render(request,'edit.html',{'form':form,'movie':movie})
-@login_required
-def delete(request,id):
-    if request.method=='POST':
-       movie=Movie.objects.get(id=id)
-       movie.delete()
-       return redirect('/')
-    return render(request,'delete.html')
+def update(request, id):  # Updated here
+    movie = get_object_or_404(Movie, id=id)
+    if movie.added_by != request.user:
+        messages.error(request, 'You do not have permission to update this movie.')
+        return redirect('moviewebsiteapp:detail', movie_id=id)
 
+    if request.method == "POST":
+        form = MovieForm(request.POST, request.FILES, instance=movie)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Movie updated successfully!')
+            return redirect('/')
+    else:
+        form = MovieForm(instance=movie)
+    return render(request, 'edit.html', {'form': form, 'movie': movie})
+
+@login_required
+def delete(request, id):  # Updated here
+    movie = get_object_or_404(Movie, id=id)
+    if movie.added_by != request.user:
+        messages.error(request, 'You do not have permission to delete this movie.')
+        return redirect('moviewebsiteapp:detail', movie_id=id)
+
+    if request.method == 'POST':
+        movie.delete()
+        messages.success(request, 'Movie deleted successfully!')
+        return redirect('/')
+    return render(request, 'delete.html', {'movie': movie})
 @login_required
 def add_review(request, movie_id):
     movie = get_object_or_404(Movie, pk=movie_id)
@@ -72,6 +83,13 @@ def add_review(request, movie_id):
     else:
         form = ReviewForm()
     return render(request, 'add_review.html', {'form': form, 'movie': movie})
+@login_required
+def movies_by_genre(request, genre_id):
+    genre = get_object_or_404(Genres, id=genre_id)
+    movies = Movie.objects.filter(genres=genre)
+    return render(request, 'movies_by_genre.html', {'genre': genre, 'movies': movies})
+
+
 
 
 
