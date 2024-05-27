@@ -1,75 +1,30 @@
 {% extends 'base.html' %}
-{% load static %}
-{% block metadescription %}
-     {% if category %}
-        {{category.description|truncatewords:155 }}
-{% else %}
-  welcome to ABC store where you can buys different items...
-{% endif %}
-{% endblock %}
-{% block title %}
- {% if genres%}
-        {{genres.name}}-ABC Store
-{% else %}
-   See our new collections -ABC Store
-{% endif %}
-{% endblock %}
-{% block content %}
-{% if genres %}
-<div>
-  <div class="row my_row_class">
-    <div class="mx_auto">
-    <p><a href="{% url 'moviewebsiteapp:detail' %}">our movies collection</a></p>
-  </div>
-    </div>
-</div>
-{% endif %}
-<div class="mx_auto">
-  {% if category %}
-  <img class="my_image" src="{{genres.image.url}}" alt="{{genres.name}}" height="500px;" width="1100px;">
-</div>
-<br>
-<div>
-  <h1 class="text-center my_title">{{genres.name}}</h1>
-
-
-</div>
-{% else %}
-<div>
- <div class="mx_auto">
-        <p><a href="{% url 'moviewebsiteapp:detail' %}">Home</a><a href="{{movies.genres.get_url}}">{{movies.genres}}</a>{{movies.name}}</p>
-    </div>
-
-<br>
-<div>
-  <h1 class="text-center my_title">Our Products Collections</h1>
-  <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla in tortor ac lectus cursus molestie sed non dolor. Vivamus semper, odio sit amet pharetra cursus, augue sem fermentum nibh, nec mattis libero eros ac tellus. Duis at convallis eros, vitae tincidunt massa. Nunc aliquet volutpat ultricies. Fusce suscipit massa in nisi commodo pellentesque. Morbi a est dignissim, aliquet elit venenatis, gravida eros. Aenean auctor quam quis libero ullamcorper, ac dictum sapien viverra.</p>
-</div>
-{% endif %}
+{% block title %}Movies in {{ genre.name }}{% endblock %}
+{% block body %}
 <div class="container">
-  <div class="row mx_auto">
-    {% for movie in movies.object_list %}
-    <div class="my_bottom_margin col-9 col-sm-12  col-md-4 col-lg-4">
-    <div class="card text-center " style=min-width:18em;">
-      <a href="{{movie.get_url}}"><img class="card-img-top my_image" src="{{movies.image.url}}" alt="{{movies.name}}" height="200px;" width="200px;" ></a>
-      <div class="card-body">
-        <h4>{{movies.name}}</h4>
+    <h1>Movies in {{ genre.name }}</h1>
+    <div class="row">
+        {% for movie in movies %}
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <img class="card-img-top" src="{{ movie.img.url }}" alt="{{ movie.name }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ movie.name }}</h5>
+                        <p class="card-text">{{ movie.desc }}</p>
+                        <h4>{{movie.actors}}</h4>
+                         <h4>{{movie.date}}</h4>
 
-      </div>
+                        <a href="{% url 'moviewebsiteapp:detail' movie.id %}" class="btn btn-primary">View Details</a>
+                         <a href="{{movie.youtube_trailer}}" class="btn btn-primary">youtube_trailer</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>No movies found in this genre.</p>
+        {% endfor %}
     </div>
-  </div>
-    {% endfor %}
-  </div>
-   <div class="mx_auto">
-       {% if movies.paginator.num_pages > 1 %}
-       {% endif %}<hr>
-        <div class="text-center">
-            {% for pg in moviess.paginator.page_range %}
-            <a href="?page={{pg}}" class="btn btn-light btn-sm {% if movies.number == pg %} active {% endif %}">{{pg}}</a>
-            {% endfor %}
-        </div>
-        {% endblock %}
-  <br>
 </div>
-</div>
-</div>
+{% endblock %}
+   
+
+   
