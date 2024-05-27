@@ -1,35 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Add Movie</title>
 </head>
 <body>
-
-{% extends 'base.html' %}
-{% block body %}
- <form method="POST" enctype="multipart/form-data" >
-     {% csrf_token %}
-     <input type="text" name="name" placeholder="enter movie name">
-     <input type="text" name="desc" placeholder="enter movie description">
-     <input type="text" name="actors" placeholder="enter the actors of the movie">
-     <input type="date" name="date" placeholder="enter the date of movie">
-     <input type="url" name="youtube_trailer" placeholder="enter the youtube_trailer">
-     <input type="file" name="img">
-
-         <label for="genres">Genres:</label>
-         <select id="genres" name="genres">
-             <option value="select a genres"></option>
-             <option value="action">Action</option>
-             <option value="drama">Drama</option>
-             <option value="thriller">Thriller</option>
-             <option value="comedy">Comedy</option>
-             <option value="horror">Horror</option>
-         </select>
-
-
-     <button type="submit">conform</button>
-   {% endblock %}
- </form>
+    <h1>Add Movie</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Movie</button>
+    </form>
 </body>
 </html>
+            
