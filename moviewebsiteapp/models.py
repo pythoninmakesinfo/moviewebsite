@@ -23,6 +23,7 @@ class Movie(models.Model):
     img = models.ImageField(upload_to='gallery')
     date=models.DateField()
     youtube_trailer=models.URLField(max_length=250)
+    added_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta :
          ordering=('name',)
