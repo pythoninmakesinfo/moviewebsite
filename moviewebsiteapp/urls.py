@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 
 
 from .import views
@@ -15,9 +15,9 @@ urlpatterns = [
     path('movie/<int:id>/',views.youtube_trailer,name='youtube_trailer'),
     path('add/',views.add_movie,name='add_movie'),
     path('add_review/<int:movie_id>/', views.add_review, name='add_review'),
+    path('genre/<int:genre_id>/', views.movies_by_genre, name='movies_by_genre'),
+
 
 
 
 ]
-
-
