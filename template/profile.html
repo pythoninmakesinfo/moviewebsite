@@ -1,16 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Profile</title>
-</head>
-<body>
-    <h1>User Profile</h1>
-    <p>Username: {{ user.username }}</p>
-    <p>First name: {{ user.first_name }}</p>
-    <p>Last name: {{ user.last_name }}</p>
-    <p>Email: {{ user.email }}</p>
-    <!-- Display additional user profile fields here if necessary -->
-    <a href="{% url 'edit_profile' %}">Edit Profile</a>
-</body>
-</html>
-Step 5: Set Up URL Patterns
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+    <h2>Edit Profile</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        <button type="submit" class="btn btn-primary">Save changes</button>
+    </form>
+</div>
+{% endblock %}
