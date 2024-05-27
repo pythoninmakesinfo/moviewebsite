@@ -20,30 +20,41 @@
 <nav class="navbar navbar-dark bg-dark">
      <a class="navbar-brand" href="#">
       Movie Website
-         <a href="/add"><button class= "btn btn-success">Add</button></a>
+         <a href="/add"><button class= "btn btn-primary">Add</button></a>
 
 
+<ul class="navbar-nav">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="genresDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Genres
+                </a>
+                <div class="dropdown-menu" aria-labelledby="genresDropdown">
+                    {% for genre in genre_list %}
+                        <a class="dropdown-item" href="{% url 'moviewebsiteapp:movies_by_genre' genre.id %}">{{ genre.name }}</a>
+                    {% endfor %}
+                </div>
+            </li>
+        </ul>
  <ul>
-        <li><a href="/">Home</a></li>
+     <li><a href="/"><button class= "btn btn-primary">Home</button></a></li>
 
             </ul>
-      <form class="d-flex" action="{% url 'searchapp:searchbar' %}" method="get">
+
+<a href="{% url 'credentials:profile' %}"><button class= "btn btn-primary">Profile</button></a>
+          <form class="d-flex" action="{% url 'searchapp:searchbar' %}" method="get">
         {% csrf_token %}
     <input class="form-control me-2" type="text" placeholder="Search" name="query" aria-label="Search">
     <button class="btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
 </form>
-
-         <ul>
-
-
-         {% if user.is_authenticated %}
-									<li> hello {{user.username}}</li>
-                                    <li><a href="credentials/logout">Logout</a></li>
-									{% else %}
-									<li><a href="credentials/register">Register</a></li>
-									<li><a href="credentials/login">Login</a></li>
-									{% endif %}
-         </ul>
+        <ul>
+    {% if user.is_authenticated %}
+        <li>Hello {{ user.username }}</li>
+        <li><a href="{% url 'credentials:logout' %}">Logout</a></li>
+    {% else %}
+        <li><a href="{% url 'credentials:register' %}">Register</a></li>
+        <li><a href="{% url 'credentials:login' %}">Login</a></li>
+    {% endif %}
+</ul>
 
 
      </a>
@@ -57,4 +68,4 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
-</html>
+</html>					
