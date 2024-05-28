@@ -15,8 +15,10 @@
 
 
 
-                 <a class="btn btn-success " href="{% url 'moviewebsiteapp:update' movies.id %}">update</a>
-                 <a class="btn btn-danger " href="{% url 'moviewebsiteapp:delete' movies.id %}">delete</a>
+                {% if user == movies.added_by %}
+    <a class="btn btn-success" href="{% url 'moviewebsiteapp:update' movies.id %}">Update</a>
+    <a class="btn btn-danger" href="{% url 'moviewebsiteapp:delete' movies.id %}">Delete</a>
+{% endif %}
 
 </div>
 
