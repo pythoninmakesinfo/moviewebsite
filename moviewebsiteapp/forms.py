@@ -7,6 +7,9 @@ class MovieForm(forms.ModelForm):
     class Meta:
         model=Movie
         fields=['name','desc','actors','genres','img','date','youtube_trailer']
+        widgets = {
+            'genres': forms.Select()
+        }
 
 
 
@@ -31,3 +34,4 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ['rating', 'comment']
+
