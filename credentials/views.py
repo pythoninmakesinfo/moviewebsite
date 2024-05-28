@@ -50,4 +50,4 @@ def profile_view(request):
     else:
         user_form = UserProfileForm(instance=request.user)
     return render(request, 'profile.html', {'user_form': user_form})
-
+   
